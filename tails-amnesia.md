@@ -1,6 +1,4 @@
-Welcome to the Tails cold storage GUIDE.
-
-This guide will use Tails without the persistence feature.
+Welcome to the Tails cold storage guide without persistence volume (paper wallet)
 
 # Introduction
 In this guide we will create a Bitcoin wallet generated on an offline Tails USB stick. [Tails](https://tails.boum.org/) is a live operating system that you can start on any computer from a USB stick or a DVD.
@@ -38,7 +36,7 @@ When you succeed in booting up the operating system from the USB, you will be pr
 
 ![Tails Greeter](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/tails-greeter.png)
 
-At this point, you need to chose if you want to use the persistent storage feature or not. If you don't use this, you will have to re-create your wallet with your seed whenever you want to do an outgoing transaction (or alternatively, you can sweep the entire wallet when you want to spend your coins). If you decide to enable the persistent storage, a copy of the wallet (including the seed) will be kept in an encrypted volume of your USB stick. This way, you don't need to access the seed whenever you want to do an outgoing transaction. This is more similar to the experience of using an air-gapped hardware wallet. If you want to use the persistence feature, check out the other guide [here](https://github.com/SovereignNode/tails-cold-storage/blob/master/tails-persistence.md).
+At this point, you need to chose if you want to use the persistent storage feature or not. If you don't use this, you will have to create a new wallet with your backed-up seed whenever you want to do an outgoing transaction (or alternatively, you can sweep the entire wallet when you want to spend your coins). If you decide to enable the persistent storage, a copy of the wallet (including the seed) will be kept in an encrypted volume of your USB stick. This way, you don't need to access the backed-up seed whenever you want to do an outgoing transaction. This is more similar to the experience of using an air-gapped hardware wallet. If you want to use the persistence feature, check out the other guide [here](https://github.com/SovereignNode/tails-cold-storage/blob/master/tails-persistence.md).
 
 Important notes:
 * If you are using a computer that still has a wifi-card or has a wired connection to the internet, make sure to DISABLE ALL NETWORKING in the Tails Greeter.
@@ -53,25 +51,29 @@ You should now have a trusted computer and a trusted Tails OS on USB that is not
 Tails OS (version 4.1) has [Electrum wallet](https://electrum.org/#home) installed by default. To create a wallet, follow these steps:
 
 * Start Electrum in Tails
-[insert picture]
+![Start Electrum](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/start_electrum.png)
 
-* Press Ctrl+N to create a new wallet.
+* Tails will give you a warning message stating that the persistence is disabled. Launch anyway.
+![Tails warning](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/electrum_persistence_disabled.png)
 
-![Create a new wallet](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/tails-create.png)
+* Entery a name for your wallet (not very important)
+
+![Create a new wallet](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/electrum_new_wallet.png)
 
 * Select 'Standard wallet'
 
-![Select type of wallet: Standard wallet](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/tails-standard.png)
+![Select type of wallet: Standard wallet](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/electrum_standard.png)
 
 * Select 'Create a new seed'
 
-![Create a new seed](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/tails-seed.png)
+![Create a new seed](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/electrum_new_seed.png)
 
 * Select 'Segwit'
 
-![Select Segwit](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/tails-segwit.png)
+![Select Segwit](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/electrum_segwit.png)
 
 * Electrum returns 12 words that represent a mnemmonic device for your seed. 
+![Receive mnemmonic seed phrase](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/electrum_wallet_seed.png)
 
 Now that we have generated a seed, it is time to think about how we want to back-up this seed.
 
@@ -90,14 +92,31 @@ This guide will use 2 backup methods. You may choose to use both or use only one
 
 **Backup #2**
 * Open a text editor
+![Open text editor](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/tails_open_text_editor.png)
+
 * Copy the 12 words into the editor
+![Copy seed in editor](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/tails_clipboard_seed.png)
+
 * Confirm the 12 words in the Electrum Install Wizard.
+![Confirm seed](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/electrum_confirm_seed.png)
+
 * There is no need to encrypt the Electrum wallet file since we are not using the persistence feature. Tails will forget everything that you did during this session.
-* Your seed should still be in the clipboard. Select 'Encrypt Clipboard with Passphrase'
+![Encrypt wallet file](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/electrum_encrypt_wallet.png)
+
+* Back in the text editor click anywhere and press `Ctrl+A` and `Ctrl+C`.
+* Select 'Encrypt Clipboard with Passphrase'
+![Encrypt clipboard](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/electrum_wallet_seed.png)
+
 * Enter your passphrase.
+![Enter passphrase](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/tails_enter_passphrase.png)
+
 * Confirm your passphrase
-* Select the seed in the text editor and paste your clipboard. Your file should now contain a passphrase-encrypted PGP message.
-* Save the file into your extra backup device (USB #2, SD-card, ...)
+![Confirm passphrase](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/tails_confirm_passphrase.png)
+
+* Paste your clipboard into the text editor (replacing the clear-text seed phrase). Your file should now contain a passphrase-encrypted PGP message.
+![Paste encrypted](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/tails_paste_encrypted.png)
+
+* Save the file onto your `extra backup device` (USB #2, SD-card, ...)
 
 
 That's it. We now have multiple ways of recovering our coins:
@@ -107,15 +126,26 @@ That's it. We now have multiple ways of recovering our coins:
 Finally, it's time to set up a wallet on our normal computer that we can use to generate addresses and transactions that does NOT contain the seed (private keys).
 
 ## Watch-only wallet
-Next, save the master key of your wallet onto the extra backup device. This needn't be encrypted but this information is sensitive in the sense of your personal privacy. **Anyone with this master key can track the balances of your wallet.**
+Next, save the master key of your wallet onto the `extra backup device`. This needn't be encrypted but this information is sensitive in the sense of privacy. **Anyone with this master key can track the balances of your wallet.**
 
-If you are running Tails on a seperate computer, you can plug the device into your normal computer or laptop. If you are using your normal computer for Tails, verify that you have correctly backed up your seed and restart your PC with your normal operating system. Mind that Tails will forget everything you did during this session.
+* In Electrum, go to 'Wallet > Information'.
+![Find wallet information](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/electrum_save_masterkey.png)
+
+* Copy the `master public key`.
+![Copy master public key](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/electrum_save_zpub.png)
+
+* Open a new text editor and paste the `master public key`.
+![Paste the master public key](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/tails_save_masterkey2.png)
+
+If you are running Tails on a seperate computer, you can plug the `extra backup device` into your normal computer or laptop. If you are using your normal computer for Tails, verify that you have correctly backed up your seed and restart your PC with your normal operating system. Mind that Tails will forget everything you did during this session. This means that you will be unable to do a test transaction for your wallet without importing your seed backup into a new wallet after restarting.
 
 If you saved the master key of your wallet, you may create a watch-only wallet on a second computer. To install Electrum, [click here](https://electrum.org/#download).
 
 * Open Electrum
 * Create New Wallet (Ctrl+N)
 * Give your wallet a good name
+![Name your wallet](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/win-new_watch_only_wallet.png)
+
 * Select option 1: 'Standard wallet'
 
 ![Select standard wallet](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/win-standard.png)
@@ -149,9 +179,9 @@ If you decided not to use the persistent storage and you already restarted your 
 
 * Send a small transaction to an address in your wallet and wait for confirmation. You can do this on both the offline computer as from the watch-only wallets. Compare the addresses on both wallets, they should be identical.
 
-![Unconfirmed transaction in the mempool...](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/tails-texttx.png)
+![Unconfirmed transaction in the mempool...](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/win-test-tx-unconfirmed.png)
 
-* From your watch-only wallet, construct a Bitcoin transaction from the received funds after it is confirmed on the blockchain. Depending on your fee and the traffic on the network, this can take a few hours.
+* From your watch-only wallet, construct a Bitcoin transaction from the received funds **after it is confirmed** on the blockchain. Depending on your fee and the traffic on the network, this can take a while.
 
 ![Watch-only wallet - spend from wallet](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/win-spendfrom.png)
 
