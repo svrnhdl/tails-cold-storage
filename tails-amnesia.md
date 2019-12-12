@@ -1,9 +1,9 @@
-Welcome to the tails-cold-storage wiki!
+Welcome to the Tails cold storage GUIDE
 
 # Introduction
-In this guide we will create a cold storage Bitcoin wallet using Tails. Tails is a live operating system that you can start on almost any computer from a USB stick or a DVD.
+In this guide we will create a Bitcoin wallet generated on an offline Tails USB stick. [Tails](https://tails.boum.org/) is a live operating system that you can start on any computer from a USB stick or a DVD.
 
-Before you start creating your keys, read through the entire guide first. If you have any questions you can ask them through 'Issues'. In no way, am I responsible for anything that might go wrong with your cold storage.
+Before you start creating your keys, read through the entire guide first. If you have any questions you can ask them via 'Issues'. In no way, am I responsible for anything that might go wrong with your cold storage. Securing your keys is your personal responsibility.
 
 # Requirements
 
@@ -12,7 +12,7 @@ Before you start creating your keys, read through the entire guide first. If you
 * 1 Extra backup device (USB, SD-card, ...)
 * Dice (6-sided) for generating entropy
 
-Ideally, the computer has the wifi-adapter and hard-drive physically removed. Make sure you trust the hardware you are using to generate your wallet. If you don't know how to remove the wifi-adapter, search around on YouTube for video's on how to replace it for your specific computer model. If you don't have an old laptop or computer lying around, you may also use your normal computer.
+Ideally, the computer is an old laptop that has the wifi-adapter and hard-drive physically removed. Make sure you trust the hardware you are using to generate your wallet. If you don't know how to remove the wifi-adapter, search around on YouTube for video's on how to replace it for your specific computer model. If you don't have an old laptop or computer lying around, you may also use your normal computer (not recommended).
 
 # Tails
 ## Description
@@ -32,35 +32,20 @@ To install Tails OS, follow the steps on [this page](https://tails.boum.org/inst
 Starting Tails can be tricky sometimes on certain computer models. You need to tell the computer to boot from the USB stick. This can be chosen during the boot-up by pressing F2 or F10 (but this varies greatly by computer models). Refer to [this page](https://tails.boum.org/install/win/usb/index.en.html#start-tails) for more information or if you are experiencing issue when starting tails.
 
 ## Persistent storage
-> If you start Tails from a USB stick, you can create a persistent volume in the free space left on the USB stick. The files in the persistent volume are saved encrypted and remain available across separate working sessions.
->
-> You can use this persistent volume to store any of the following:
-> * Personal files
-> * Some settings
-> * Additional software
-> * Encryption keys
-> 
-> The persistent volume is an encrypted partition protected by a passphrase.
-> 
-> Once the persistent volume is created, you can choose to activate it or not each time you start Tails. 
-
-[Source](https://tails.boum.org/doc/first_steps/persistence/index.en.html)
-
 When you succeed in booting up the operating system from the USB, you will be presented with the Tails Greeter. At this point, you need to chose if you want to use the persistent storage feature or not. 
 
-If you don't use this, you will have to re-create your wallet with your backed-up seed whenever you want to do an outgoing transaction (or alternatively, you can sweep the entire wallet when you want to spend your coins).
-
-If you decide to enable the persistent storage, a copy of the wallet (including the seed) will be kept in the encrypted volume of your USB stick. This way, you don't need to access the seed whenever you want to do an outgoing transaction. This is more similar to the experience of using an air-gapped hardware wallet.
-
 ![Tails Greeter](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/tails-greeter.png)
+
+If you don't use this, you will have to re-create your wallet with your seed whenever you want to do an outgoing transaction (or alternatively, you can sweep the entire wallet when you want to spend your coins). If you decide to enable the persistent storage, a copy of the wallet (including the seed) will be kept in the encrypted volume of your USB stick. This way, you don't need to access the seed whenever you want to do an outgoing transaction. This is more similar to the experience of using an air-gapped hardware wallet.
 
 Since we won't be using the persistence feature in this guide, you can simply start Tails. If you are using a computer that still has a wifi-card or has a wired connection to the internet, make sure to DISABLE ALL NETWORKING in the Tails Greeter.
 
 # Creating a wallet
 ## Air-gapped cold storage wallet
-You should now have a trusted computer and a trusted Tails OS on USB.
+You should now have a trusted computer and a trusted Tails OS on USB that is not connected to the internet.
 
-Tails OS (version 4.1) has Electrum wallet installed by default. To create a wallet, follow these steps:
+Tails OS (version 4.1) has [Electrum wallet](https://electrum.org/#home) installed by default. To create a wallet, follow these steps:
+
 * Start Electrum in Tails
 [insert picture]
 
@@ -102,8 +87,8 @@ Backup #1
 * Confirm the 12 words in the Electrum Install Wizard.
 * There is no need to encrypt the Electrum wallet file since we are not using the persistence feature. Tails will forget everything that you did during this session.
 * Your seed should still be in the clipboard. Select 'Encrypt Clipboard with Passphrase'
-* Enter a passphrase. This need not be the same passphrase as your persistent volume above (but it can be).
-* Confirm the passphrase
+* Enter your passphrase.
+* Confirm your passphrase
 * Select the seed in the text editor and paste your clipboard. Your file should now contain a passphrase-encrypted PGP message.
 * Save the file into your extra backup device (USB #2, SD-card, ...)
 
@@ -119,13 +104,13 @@ Finally, it's time to set up a wallet on our normal computer that we can use to 
 ## Watch-only wallet
 Next, save the master key of your wallet onto the extra backup device. This needn't be encrypted but this information is sensitive in the sense of your personal privacy. **Anyone with this master key can track the balances of your wallet.**
 
-If you are running Tails on a seperate computer, you can plug in the device into your normal computer or laptop. If you are using your normal computer for Tails, verify that you have correctly backed up your seed and restart your PC with your normal operating system. Mind that Tails will forget everything you did during this session.
+If you are running Tails on a seperate computer, you can plug the device into your normal computer or laptop. If you are using your normal computer for Tails, verify that you have correctly backed up your seed and restart your PC with your normal operating system. Mind that Tails will forget everything you did during this session.
 
-If you saved the master key of your wallet, you may create a watch-only wallet on a second computer.
+If you saved the master key of your wallet, you may create a watch-only wallet on a second computer. To install Electrum, [click here](https://electrum.org/#download).
+
 * Open Electrum
 * Create New Wallet (Ctrl+N)
 * Give your wallet a good name
-
 * Select option 1: 'Standard wallet'
 
 ![Select standard wallet](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/win-standard.png)
@@ -144,9 +129,15 @@ If you saved the master key of your wallet, you may create a watch-only wallet o
 
 IMPORTANT: 
 
-Run your own node and connect Electrum to this node (preferably over Tor)
+If you connect to public Electrum servers (the default behavior) then you are giving away your master key to strangers. This means that they can trivially track your balances and link this back to your IP address. You are giving away your privacy by doing this.
 
-If you connect to public Electrum servers (the default behavior) then you are giving away your master key to strangers. This means they can trivially track your balances and link this back to your IP address.
+**Run your own node** and connect Electrum to this node (preferably over Tor).
+
+* [Bitcoin.org - Running a full node](https://bitcoin.org/en/full-node)
+* [Bitembassy - Home node](https://github.com/bitembassy/home-node/blob/master/README.md) - Advanced
+* [Mynodebtc](https://mynodebtc.com/) - Advanced
+* [Nodl.it](https://www.nodl.it/) - Expensive
+* [Casa node](https://store.casa/lightning-node/)
 
 # Test your wallet
 If you decided not to use the persistent storage and you already restarted your Tails OS, you will need to create a new wallet and import the seed words again. This is not recommended.
@@ -175,3 +166,8 @@ If you decided not to use the persistent storage and you already restarted your 
 ![Broadcast transaction](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/win-broadcast.png)
 
 # Store your backups
+
+We now have the following objects to secure:
+1. Clear-text copy of our `mnemmonic seed phrase`
+2. `USB-stick` with a passphrase-encrypted file (containing our mnemmonic seed phrase)
+3. A `passphrase` to decrypt our backup on the USB-stick
