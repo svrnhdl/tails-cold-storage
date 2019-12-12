@@ -151,7 +151,7 @@ Next, save the master key of your wallet onto the `extra backup device`. This ne
 
 ![Paste the master public key](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/tails_save_masterkey2.png)
 
-If you are running Tails on a seperate computer, you can plug the `extra backup device` into your normal computer or laptop. If you are using your normal computer for starting Tails, verify that you have correctly backed up your seed and restart your PC with your normal operating system. Mind that Tails will forget everything you did during this session. This means that you will be unable to do a test transaction for your wallet without importing your seed backup into a new wallet after restarting. **To properly test your wallet setup, you will need two separate computers.**
+If you are running Tails on a separate computer, you can plug the `extra backup device` into your normal computer or laptop. If you are using the same computer for starting Tails and the watch-only wallet, verify that you have correctly backed up your seed and restart your PC with your normal operating system. Mind that Tails will forget everything you did during this session. This means that you will be unable to do a test transaction for your wallet without importing your seed backup into a new wallet after restarting. **To properly test your wallet setup, you will need two separate computers.**
 
 If you saved the master key of your wallet, you may create a watch-only wallet on a second computer. To install Electrum, [click here](https://electrum.org/#download).
 

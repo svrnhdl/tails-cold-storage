@@ -1,14 +1,14 @@
-Welcome to the tails-cold-storage wiki!
+Tails cold storage guide with persistence volume
 
 # Introduction
-In this guide we will create a cold storage Bitcoin wallet using Tails. Tails is a live operating system that you can start on almost any computer from a USB stick or a DVD.
+In this guide we will create a Bitcoin wallet generated on an offline Tails USB stick. [Tails](https://tails.boum.org/) is a live operating system that you can start on any computer from a USB stick or a DVD.
 
-Before you start creating your keys, read through the entire guide first. If you have any questions you can ask them through 'Issues'. In no way, am I responsible for anything that might go wrong with your cold storage.
+Before you start creating your keys, read through the entire guide first. If you have any questions you can ask them via 'Issues'. In no way, am I responsible for anything that might go wrong with your cold storage. Securing your keys is your personal responsibility.
 
 # Requirements
 
 * 1 Computer
-* 1 USB stick
+* 1 USB stick (min. 8GB)
 * 1 Extra backup device (USB, SD-card, ...)
 * Dice (6-sided) for generating entropy
 
@@ -32,52 +32,39 @@ To install Tails OS, follow the steps on [this page](https://tails.boum.org/inst
 Starting Tails can be tricky sometimes on certain computer models. You need to tell the computer to boot from the USB stick. This can be chosen during the boot-up by pressing F2 or F10 (but this varies greatly by computer models). Refer to [this page](https://tails.boum.org/install/win/usb/index.en.html#start-tails) for more information or if you are experiencing issue when starting tails.
 
 ## Persistent storage
-> If you start Tails from a USB stick, you can create a persistent volume in the free space left on the USB stick. The files in the persistent volume are saved encrypted and remain available across separate working sessions.
->
-> You can use this persistent volume to store any of the following:
-> * Personal files
-> * Some settings
-> * Additional software
-> * Encryption keys
-> 
-> The persistent volume is an encrypted partition protected by a passphrase.
-> 
-> Once the persistent volume is created, you can choose to activate it or not each time you start Tails. 
+When you succeed in booting up the operating system from the USB, you will be presented with the Tails Greeter.
 
-[Source](https://tails.boum.org/doc/first_steps/persistence/index.en.html)
+![Tails Greeter](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/tails-greeter.png)
 
-When you succeed in booting up the operating system from the USB, you will be presented with the Tails Greeter. At this point, you need to chose if you want to use the persistent storage feature or not. 
+At this point, you need to chose if you want to use the persistent storage feature or not. If you don't use this, you will have to re-create a wallet with your backed-up seed whenever you want to do an outgoing transaction (or alternatively, you can sweep the entire wallet when you want to spend your coins). If you decide to enable the persistent storage, a copy of the wallet (including the seed) will be kept in an encrypted volume of your USB stick. This way, you don't need to access the backed-up seed whenever you want to do an outgoing transaction. This is more similar to the experience of using an air-gapped hardware wallet. The choice is a personal one. If you want to be able to spend from the wallet occasionally, I suggest that you use the persistent volume with a **strong passphrase**. If you don't want to use the persistence feature, check out the other guide [here](https://github.com/SovereignNode/tails-cold-storage/blob/master/tails-amnesia.md).
 
-If you don't use this, you will have to re-create your wallet with your backed-up seed whenever you want to do an outgoing transaction (or alternatively, you can sweep the entire wallet when you want to spend your coins). If you decide to enable the persistent storage, a copy of the wallet (including the seed) will be kept in the encrypted volume of your USB stick. This way, you don't need to access the seed whenever you want to do an outgoing transaction. This is more similar to the experience of using an air-gapped hardware wallet.
-
-![Tails Greeter](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/tails-greeter.png)
-
-If you plan to use the persistence volume, you may 
+For this guide, we will use a persistence volume:
 * Start Tails without enabling networking 
-* Create a persistent volume via 'Applications ▸ Tails ▸ Configure persistent volume'.
-* Choose a strong passphrase with enough entropy ([see below](https://github.com/SovereignNode/tails-cold-storage/wiki/Guide:-Create-a-Bitcoin-cold-storage-using-Tails-OS#generating-entropy))
+* Create a persistent volume via 'Applications > Tails > Configure persistent volume'.
+* Choose a strong passphrase (`passphrase A`) with enough entropy ([see below])
 * **Restart the system after creating your encrypted drive.**
 
-The choice is a personal one. If you want to be able to spend from the wallet occasionally, I suggest that you use the persistent volume with a **strong passphrase**.
 
 ## Generating entropy
 To get an idea of what a strong passphrase is, you can check out [this page](https://coldbit.com/can-bip-39-passphrase-be-cracked/). For the purpose of this guide, we will use the ['EFF Diceware Short Wordlist'](https://www.eff.org/files/2016/09/08/eff_short_wordlist_1.txt).
 
-Ideally, you want to be using **casino-grade** dice for generating entropy. Roll 4 dice on a fair surface and read the word from the printed wordlist. Write the word down carefully and continue until you have sufficient entropy.
+Ideally, you want to be using **casino-grade** dice for generating entropy. Roll 4 dice on a fair surface and read the word from the printed wordlist. Write the word down carefully and continue until you have sufficient entropy. For instance, if you roll '1111', you write down 'acid' from the list. **I recommend using at least six words from the short wordlist**. This corresponds to 1296^6 combinations or 62 bits of entropy.
 
-**I recommend using at least six words from the short wordlist**. This corresponds to 1296^6 combinations or 62 bits of entropy.
+**IMPORTANT:** If you did not change the language and region settings in the Greeter, be careful when you type your passphrase in the next step. This is important for users who are used to different keyboard layouts for typing (like AZERTY).
 
 # Creating a wallet
 ## Air-gapped cold storage wallet
 You should now have a trusted computer and a trusted Tails OS on USB (with a persistent volume encrypted by a strong passphrase)
 
-Tails OS (version 4.1) has Electrum wallet installed by default. To create a wallet, follow these steps:
-* Start Electrum in Tails
-[insert picture]
+Tails OS (version 4.1) has [Electrum wallet](https://electrum.org/#home) installed by default. To create a wallet, follow these steps:
 
-* Press Ctrl+N to create a new wallet.
+* Start Electrum in Tails (Applications > Internet > Electrum Bitcoin Wallet)
 
-![Create a new wallet](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/tails-create.png)
+![Start Electrum](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/start_electrum.png)
+
+* Enter a name for your wallet
+
+![Create a new wallet](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/electrum_new_wallet.png)
 
 * Select 'Standard wallet'
 
@@ -93,86 +80,161 @@ Tails OS (version 4.1) has Electrum wallet installed by default. To create a wal
 
 * Electrum returns 12 words that represent a mnemmonic device for your seed. 
 
+![Receive mnemmonic seed phrase](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/electrum_wallet_seed.png)
+
 Now that we have generated a seed, it is time to think about how we want to back-up this seed.
 
 ## Backup Seed
 This guide will use 2 backup methods. You may choose to use both or use only one, depending on your preference for storing the backups and your personal considerations regarding their trade-offs.
 
-Backup #1
-* Open a text editor
-* Copy the 12 words into the editor
-* Confirm the 12 words in the Electrum Install Wizard.
-* You can encrypt your wallet file (locally stored seed on the persistent volume) using an extra password (optional).
-* Your seed should still be in the clipboard. Select 'Encrypt Clipboard with Passphrase'
-* Enter a passphrase. This need not be the same passphrase as your persistent volume above.
-* Confirm the passphrase
-* Select the seed in the text editor and paste your clipboard. Your file should now contain a passphrase-encrypted PGP message.
-* Save the file into your extra backup device (USB #2, SD-card, ...)
-
-Backup #2
+**Backup #1**
 * Write down the 12 words on paper. You can also stamp or engrave your seed phrase in metal for durability.
 
+**Backup #2**
+* Open a text editor
+
+![Open text editor](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/tails_open_text_editor.png)
+
+* Copy the 12 words into the editor
+
+![Copy seed in editor](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/tails_clipboard_seed.png)
+
+* Confirm the 12 words in the Electrum Install Wizard.
+
+![Confirm seed](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/electrum_confirm_seed.png)
+
+* You can encrypt the wallet file on your persistent volume. A good PIN code should be sufficient (since your persistence volume is already encrypted with a strong passphrase).
+
+![Encrypt wallet file](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/electrum_encrypt_wallet.png)
+
+* Back in the text editor click anywhere and press `Ctrl+A` and `Ctrl+C`.
+* Select 'Encrypt Clipboard with Passphrase'
+
+![Encrypt clipboard](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/tails_encrypt_clipboard.png)
+
+* Enter your passphrase (`passphrase B`). This may or may not be the same as the passphrase for your persistence volume (see above).
+
+![Enter passphrase](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/tails_enter_passphrase.png)
+
+* Confirm your passphrase (`passphrase B`)
+
+![Confirm passphrase](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/tails_confirm_passphrase.png)
+
+* Paste your clipboard (press `Ctrl + V`) into the text editor (replacing the clear-text seed phrase). Your file should now contain a passphrase-encrypted PGP message.
+
+![Paste encrypted](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/tails_paste_encrypted.png)
+
+* Save the file onto your `extra backup device` (USB #2, SD-card, ...)
+
 That's it. We now have multiple ways of recovering our coins:
-* Backup #2: a clear-text copy of your mnemmonic. **Anyone who has access to these words has access to your coins.**
-* Backup #1: a passphrase-encrypted file that contains a clear-text copy of your mnemmonic. **Anyone who has access to the storage device AND the passphrase has access to your coins.**
-* Tails OS: a passphrase-encrypted volume that contains a clear-text copy of your mnemmonic. **Anyone who has access to the storage device AND the passphrase has access to your coins.**
+* Backup #1: a clear-text copy of your mnemmonic. **Anyone who has access to these words has access to your coins.**
+* Backup #2: a passphrase-encrypted file (`passphrase B`) that contains a clear-text copy of your mnemmonic. **Anyone who has access to the storage device AND the passphrase has access to your coins.**
+* Tails OS: a passphrase-encrypted volume (`passphrase A`) that contains a clear-text copy of your mnemmonic. **Anyone who has access to the storage device AND the passphrase has access to your coins.**
 
 Finally, it's time to set up a wallet on our normal computer that we can use to generate addresses and transactions that does NOT contain the seed (private keys).
 
 ## Watch-only wallet
-You may want to save the master key of your wallet onto the extra backup device. This needn't be encrypted but this information is sensitive in the sense of your personal privacy. **Anyone with this master key can track the balances of your wallet.**
+Next, save the master key of your wallet onto the `extra backup device`. This needn't be encrypted but this information is sensitive in the sense of privacy. **Anyone with this master key can track the balances of your wallet.**
 
-If you saved the master key of your wallet, you may create a watch-only wallet on a second computer.
+* In Electrum, go to 'Wallet > Information'.
+
+![Find wallet information](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/electrum_save_masterkey.png)
+
+* Copy the `master public key`.
+
+![Copy master public key](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/electrum_save_zpub.png)
+
+* Open a new text editor and paste the `master public key`.
+
+![Paste the master public key](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/tails_save_masterkey2.png)
+
+If you are running Tails on a separate computer, you can plug the `extra backup device` into your normal computer or laptop. If you are using the same computer for starting Tails and the watch-only wallet, verify that you have correctly backed up your seed and restart your PC with your normal operating system.
+
+If you saved the master key of your wallet, you may create a watch-only wallet on a second computer. To install Electrum, [click here](https://electrum.org/#download).
+
 * Open Electrum
 * Create New Wallet (Ctrl+N)
 * Give your wallet a good name
 
+![Name your wallet](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/win-new_watch_only_wallet.png)
+
 * Select option 1: 'Standard wallet'
 
-![Select standard wallet](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/win-standard.png)
+![Select standard wallet](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/win-standard.png)
 
 * Select option 3: 'Use a master key'
 
-![Select 'Use a master key'](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/win-masterkey.png)
+![Select 'Use a master key'](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/win-masterkey.png)
 
 * Copy the master key from your extra backup device into the dialog box. Press 'Next'
 
-![Watch-only wallet - insert zpub](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/win-zpub.png)
+![Watch-only wallet - insert zpub](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/win-zpub.png)
 
 * Optionally, encrypt the local wallet file with a password (recommended)
 
-![Succesfully created a watch only wallet](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/win-watchonly.png)
+![Succesfully created a watch only wallet](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/win-watchonly.png)
 
 IMPORTANT: 
 
-Run your own node and connect Electrum to this node (preferably over Tor)
+If you connect to public Electrum servers (the default behavior) then you are giving away your master key to strangers. This means that they can trivially track your balances and link this back to your IP address. You are giving away your privacy by doing this.
 
-If you connect to public Electrum servers (the default behavior) then you are giving away your master key to strangers. This means they can trivially track your balances and link this back to your IP address.
+**Run your own node** and connect Electrum to this node (preferably over Tor).
+
+* [Bitcoin.org - Running a full node](https://bitcoin.org/en/full-node)
+* [Bitembassy - Home node](https://github.com/bitembassy/home-node/blob/master/README.md) - Advanced
+* [Mynodebtc](https://mynodebtc.com/) - Advanced
+* [Nodl.it](https://www.nodl.it/) - Expensive
+* [Casa node](https://store.casa/lightning-node/)
 
 # Test your wallet
-If you decided not to use the persistent storage and you already restarted your Tails OS, you will need to create a new wallet and import the seed words again. This is not recommended.
+Now, we will do a small test transaction to confirm everything is working properly. **Don't story large amounts of money on this wallet until you are comfortable with this setup.**
 
 * Send a small transaction to an address in your wallet and wait for confirmation. You can do this on both the offline computer as from the watch-only wallets. Compare the addresses on both wallets, they should be identical.
 
-![Unconfirmed transaction in the mempool...](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/tails-texttx.png)
+![Unconfirmed transaction in the mempool...](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/win-test-tx-unconfirmed.png)
 
-* From your watch-only wallet, construct a Bitcoin transaction from the received funds after it is confirmed on the blockchain. Depending on your fee and the traffic on the network, this can take a few hours.
+* From your watch-only wallet, construct a Bitcoin transaction from the received funds **after it is confirmed** on the blockchain. Depending on your fee and the traffic on the network, this can take a while.
 
-![Watch-only wallet - spend from wallet](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/win-spendfrom.png)
+![Watch-only wallet - spend from wallet](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/win-spendfrom.png)
 
 * Export the transaction to an empty USB-stick or SD-card. We are creating a transaction on your normal computer and transfer the transaction in a file to the offline machine.
 
-* Back on your Tails OS, open the wallet (that contains your seed) from the persistent storage and go to 'Tools > Load transaction > From file'
+* Back on your offline machine, inside the wallet (that contains your seed), go to 'Tools > Load transaction > From file'
 * Sign the transaction
 
-![Sign and Export your transaction](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/tails-signtx.png)
+![Sign and Export your transaction](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/tails-signtx.png)
+
 * Export the transaction back to the USB-stick or SD-card.
 * Back on your regular PC, from your watch-only wallet, load the signed transaction from file.
 
-![Watch-only wallet - load transaction](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/win-loadtx.png)
+![Watch-only wallet - load transaction](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/win-loadtx.png)
 
 * Broadcast your transaction to the network. Preferably this is done with your own personal node using Tor.
 
-![Broadcast transaction](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/win-broadcast.png)
+![Broadcast transaction](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/win-broadcast.png)
+
 
 # Store your backups
+
+We now have the following objects to secure:
+1. Clear-text copy of our `mnemmonic seed phrase`.
+2. A `storage device` with a passphrase-encrypted file (containing our mnemmonic seed phrase).
+3. A `passphrase B` to decrypt the passphrase-encrypted file on the `storage device`.
+4. A `Tails USB-stick` with a passphrase-encrypted volume (containing our mnemmonic seed phrase).
+5. A `passphrase A` to decrypt the passphrase-encrypted volume on the `Tails USB-stick`..
+
+
+* Securely store the `mnemmonic seed phrase` in a safe place. Consider storing this inside a tamper-evident bag and using a vault or bank-deposit box.
+* Keep your `storage device` safe. This can be a USB-stick or an SD-card.
+* Keep your `passphrase B` safe and store it AWAY FROM the `storage device`.
+* Keep your `Tails USB-stick` safe.
+* Keep your `passphrase A` safe and store it AWAY FROM the `Tails USB-stick`.
+
+`Passphrase A` and `Passphrase B` may or may not be the same depending on your personal preference and risk-analysis.  You may want to keep a copy of your passphrases inside a password manager and in clear-text.
+
+Keep in mind that an attacker can access your coins if he/she:
+* has access to your `mnemmonic seed phrase` (in clear-text)
+* has access to both your `storage device` (containing your passphrase-encrypted file) AND your `passphrase B`.
+* has access to both your `Tails USB-stick` (containing your passphrase-encrypted file) AND your `passphrase A).
+
+Congratulation! You've successfully created an offline wallet to store your bitcoins.
