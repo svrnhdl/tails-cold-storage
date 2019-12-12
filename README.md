@@ -1,7 +1,7 @@
 # Bitcoin cold storage with Tails OS
 A guide on how to create a cold storage on a Tails bootable USB. There are two guides available:
-* [Tails cold storage WITH persistence volume](https://github.com/SovereignNode/tails-cold-storage/blob/master/tails-amnesia.md)
-* [Tails cold storage WITHOUT persistence volume](https://github.com/SovereignNode/tails-cold-storage/blob/master/tails-persistence.md)
+* [Tails cold storage WITHOUT persistence volume](https://github.com/SovereignNode/tails-cold-storage/blob/master/tails-amnesia.md)
+* [Tails cold storage WITH persistence volume](https://github.com/SovereignNode/tails-cold-storage/blob/master/tails-persistence.md)
 
 
 ## Persistence feature
