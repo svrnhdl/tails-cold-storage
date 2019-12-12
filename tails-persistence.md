@@ -197,14 +197,14 @@ Now, we will do a small test transaction to confirm everything is working proper
 
 ![Watch-only wallet - spend from wallet](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/win-spendfrom.png)
 
-* Export the transaction to an empty USB-stick or SD-card. We are creating a transaction on your normal computer and transfer the transaction in a file to the offline machine.
+* Export the transaction to your `extra storage device`. We are creating a transaction on your normal computer and transfer the transaction in a file to the offline machine.
 
 * Back on your offline machine, inside the wallet (that contains your seed), go to 'Tools > Load transaction > From file'
 * Sign the transaction
 
 ![Sign and Export your transaction](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/tails-signtx.png)
 
-* Export the transaction back to the USB-stick or SD-card.
+* Export the signed transaction back to the `extra storage device`.
 * Back on your regular PC, from your watch-only wallet, load the signed transaction from file.
 
 ![Watch-only wallet - load transaction](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/amnesia/win-loadtx.png)
@@ -235,6 +235,6 @@ We now have the following objects to secure:
 Keep in mind that an attacker can access your coins if he/she:
 * has access to your `mnemmonic seed phrase` (in clear-text)
 * has access to both your `storage device` (containing your passphrase-encrypted file) AND your `passphrase B`.
-* has access to both your `Tails USB-stick` (containing your passphrase-encrypted file) AND your `passphrase A).
+* has access to both your `Tails USB-stick` (containing your passphrase-encrypted file) AND your `passphrase A`).
 
 Congratulation! You've successfully created an offline wallet to store your bitcoins.
