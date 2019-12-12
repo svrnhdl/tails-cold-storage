@@ -1,4 +1,6 @@
-Welcome to the Tails cold storage GUIDE
+Welcome to the Tails cold storage GUIDE.
+
+This guide will use Tails without the persistence feature.
 
 # Introduction
 In this guide we will create a Bitcoin wallet generated on an offline Tails USB stick. [Tails](https://tails.boum.org/) is a live operating system that you can start on any computer from a USB stick or a DVD.
@@ -8,7 +10,7 @@ Before you start creating your keys, read through the entire guide first. If you
 # Requirements
 
 * 1 Computer
-* 1 USB stick
+* 1 USB stick (min. 8GB)
 * 1 Extra backup device (USB, SD-card, ...)
 * Dice (6-sided) for generating entropy
 
@@ -32,13 +34,15 @@ To install Tails OS, follow the steps on [this page](https://tails.boum.org/inst
 Starting Tails can be tricky sometimes on certain computer models. You need to tell the computer to boot from the USB stick. This can be chosen during the boot-up by pressing F2 or F10 (but this varies greatly by computer models). Refer to [this page](https://tails.boum.org/install/win/usb/index.en.html#start-tails) for more information or if you are experiencing issue when starting tails.
 
 ## Persistent storage
-When you succeed in booting up the operating system from the USB, you will be presented with the Tails Greeter. At this point, you need to chose if you want to use the persistent storage feature or not. 
+When you succeed in booting up the operating system from the USB, you will be presented with the Tails Greeter.
 
 ![Tails Greeter](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/tails-greeter.png)
 
-If you don't use this, you will have to re-create your wallet with your seed whenever you want to do an outgoing transaction (or alternatively, you can sweep the entire wallet when you want to spend your coins). If you decide to enable the persistent storage, a copy of the wallet (including the seed) will be kept in the encrypted volume of your USB stick. This way, you don't need to access the seed whenever you want to do an outgoing transaction. This is more similar to the experience of using an air-gapped hardware wallet.
+At this point, you need to chose if you want to use the persistent storage feature or not. If you don't use this, you will have to re-create your wallet with your seed whenever you want to do an outgoing transaction (or alternatively, you can sweep the entire wallet when you want to spend your coins). If you decide to enable the persistent storage, a copy of the wallet (including the seed) will be kept in an encrypted volume of your USB stick. This way, you don't need to access the seed whenever you want to do an outgoing transaction. This is more similar to the experience of using an air-gapped hardware wallet.
 
-Since we won't be using the persistence feature in this guide, you can simply start Tails. If you are using a computer that still has a wifi-card or has a wired connection to the internet, make sure to DISABLE ALL NETWORKING in the Tails Greeter.
+Since we won't be using the persistence feature in this guide, you can simply press 'Start Tails' and continue with this guide. If you are using a computer that still has a wifi-card or has a wired connection to the internet, make sure to DISABLE ALL NETWORKING in the Tails Greeter.
+
+If you want to use the persistence feature, check out the other guide [here](https://github.com/SovereignNode/tails-cold-storage/blob/master/tails-persistence.md).
 
 # Creating a wallet
 ## Air-gapped cold storage wallet
@@ -77,6 +81,8 @@ To get an idea of what a strong passphrase is, you can check out [this page](htt
 Ideally, you want to be using **casino-grade** dice for generating entropy. Roll 4 dice on a fair surface and read the word from the printed wordlist. Write the word down carefully and continue until you have sufficient entropy. For instance, if you roll '1111', you write down 'acid' from the list.
 
 **I recommend using at least six words from the short wordlist**. This corresponds to 1296^6 combinations or 62 bits of entropy.
+
+**IMPORTANT:** If you did not change the language and region settings in the Greeter, be careful when you type your passphrase in the next step.
 
 ## Backup Seed
 This guide will use 2 backup methods. You may choose to use both or use only one, depending on your preference for storing the backups and your personal considerations regarding their trade-offs.
