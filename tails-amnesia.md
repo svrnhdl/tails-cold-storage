@@ -38,11 +38,13 @@ When you succeed in booting up the operating system from the USB, you will be pr
 
 ![Tails Greeter](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/tails-greeter.png)
 
-At this point, you need to chose if you want to use the persistent storage feature or not. If you don't use this, you will have to re-create your wallet with your seed whenever you want to do an outgoing transaction (or alternatively, you can sweep the entire wallet when you want to spend your coins). If you decide to enable the persistent storage, a copy of the wallet (including the seed) will be kept in an encrypted volume of your USB stick. This way, you don't need to access the seed whenever you want to do an outgoing transaction. This is more similar to the experience of using an air-gapped hardware wallet.
+At this point, you need to chose if you want to use the persistent storage feature or not. If you don't use this, you will have to re-create your wallet with your seed whenever you want to do an outgoing transaction (or alternatively, you can sweep the entire wallet when you want to spend your coins). If you decide to enable the persistent storage, a copy of the wallet (including the seed) will be kept in an encrypted volume of your USB stick. This way, you don't need to access the seed whenever you want to do an outgoing transaction. This is more similar to the experience of using an air-gapped hardware wallet. If you want to use the persistence feature, check out the other guide [here](https://github.com/SovereignNode/tails-cold-storage/blob/master/tails-persistence.md).
 
-Since we won't be using the persistence feature in this guide, you can simply press 'Start Tails' and continue with this guide. If you are using a computer that still has a wifi-card or has a wired connection to the internet, make sure to DISABLE ALL NETWORKING in the Tails Greeter.
+Important notes:
+* If you are using a computer that still has a wifi-card or has a wired connection to the internet, make sure to DISABLE ALL NETWORKING in the Tails Greeter.
+* If you are not used to the American keyboard layout, it could be worthwile to select your preferred layout.
 
-If you want to use the persistence feature, check out the other guide [here](https://github.com/SovereignNode/tails-cold-storage/blob/master/tails-persistence.md).
+Since we won't be using the persistence feature in this guide, you can simply press 'Start Tails' and continue with this guide.
 
 # Creating a wallet
 ## Air-gapped cold storage wallet
@@ -78,16 +80,17 @@ In the next step, we will need a strong passphrase to encrypt the mnemmonic seed
 
 To get an idea of what a strong passphrase is, you can check out [this page](https://coldbit.com/can-bip-39-passphrase-be-cracked/). For the purpose of this guide, we will use the ['EFF Diceware Short Wordlist'](https://www.eff.org/files/2016/09/08/eff_short_wordlist_1.txt).
 
-Ideally, you want to be using **casino-grade** dice for generating entropy. Roll 4 dice on a fair surface and read the word from the printed wordlist. Write the word down carefully and continue until you have sufficient entropy. For instance, if you roll '1111', you write down 'acid' from the list.
+Ideally, you want to be using **casino-grade** dice for generating entropy. Roll 4 dice on a fair surface and read the word from the printed wordlist. Write the word down carefully and continue until you have sufficient entropy. For instance, if you roll '1111', you write down 'acid' from the list. **I recommend using at least six words from the short wordlist**. This corresponds to 1296^6 combinations or 62 bits of entropy.
 
-**I recommend using at least six words from the short wordlist**. This corresponds to 1296^6 combinations or 62 bits of entropy.
-
-**IMPORTANT:** If you did not change the language and region settings in the Greeter, be careful when you type your passphrase in the next step.
+**IMPORTANT:** If you did not change the language and region settings in the Greeter, be careful when you type your passphrase in the next step. This is important for users who are used to different keyboard layouts for typing (like AZERTY).
 
 ## Backup Seed
 This guide will use 2 backup methods. You may choose to use both or use only one, depending on your preference for storing the backups and your personal considerations regarding their trade-offs.
 
-Backup #1
+**Backup #1**
+* Write down the 12 words on paper. You can also stamp or engrave your seed phrase in metal for durability.
+
+**Backup #2**
 * Open a text editor
 * Copy the 12 words into the editor
 * Confirm the 12 words in the Electrum Install Wizard.
@@ -98,12 +101,10 @@ Backup #1
 * Select the seed in the text editor and paste your clipboard. Your file should now contain a passphrase-encrypted PGP message.
 * Save the file into your extra backup device (USB #2, SD-card, ...)
 
-Backup #2
-* Write down the 12 words on paper. You can also stamp or engrave your seed phrase in metal for durability.
 
 That's it. We now have multiple ways of recovering our coins:
-* Backup #2: a clear-text copy of your mnemmonic. **Anyone who has access to these words has access to your coins.**
-* Backup #1: a passphrase-encrypted file that contains a clear-text copy of your mnemmonic. **Anyone who has access to the storage device AND the passphrase has access to your coins.**
+* Backup #1: a clear-text copy of your mnemmonic. **Anyone who has access to these words has access to your coins.**
+* Backup #2: a passphrase-encrypted file that contains a clear-text copy of your mnemmonic. **Anyone who has access to the storage device AND the passphrase has access to your coins.**
 
 Finally, it's time to set up a wallet on our normal computer that we can use to generate addresses and transactions that does NOT contain the seed (private keys).
 
@@ -175,5 +176,15 @@ If you decided not to use the persistent storage and you already restarted your 
 
 We now have the following objects to secure:
 1. Clear-text copy of our `mnemmonic seed phrase`
-2. `USB-stick` with a passphrase-encrypted file (containing our mnemmonic seed phrase)
-3. A `passphrase` to decrypt our backup on the USB-stick
+2. A `storage device` with a passphrase-encrypted file (containing our mnemmonic seed phrase)
+3. A `passphrase` to decrypt the passphrase-encrypted file on the USB-stick
+
+* Securely store the `mnemmonic seed phrase` in a safe place. Consider storing this inside a tamper-evident bag and using a vault or bank-deposit box.
+* Keep your `storage device` safe. This can be a USB-stick or an SD-card.
+* Keep your `passphrase` safe and store it AWAY FROM the `storage device`. You may want to keep a copy of your passphrase inside a password manager and in clear-text.
+
+Keep in mind that an attacker can access your coins if he/she:
+* has access to your `mnemmonic seed phrase` (in clear-text)
+* has access to both your `storage device` (containing your passphrase-encrypted file) AND your `passphrase`.
+
+Congratulation! You've successfully created an offline wallet to store your bitcoins.
