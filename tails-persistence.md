@@ -48,9 +48,7 @@ Starting Tails can be tricky sometimes on certain computer models. You need to t
 
 When you succeed in booting up the operating system from the USB, you will be presented with the Tails Greeter. At this point, you need to chose if you want to use the persistent storage feature or not. 
 
-If you don't use this, you will have to re-create your wallet with your backed-up seed whenever you want to do an outgoing transaction (or alternatively, you can sweep the entire wallet when you want to spend your coins).
-
-If you decide to enable the persistent storage, a copy of the wallet (including the seed) will be kept in the encrypted volume of your USB stick. This way, you don't need to access the seed whenever you want to do an outgoing transaction. This is more similar to the experience of using an air-gapped hardware wallet.
+If you don't use this, you will have to re-create your wallet with your backed-up seed whenever you want to do an outgoing transaction (or alternatively, you can sweep the entire wallet when you want to spend your coins). If you decide to enable the persistent storage, a copy of the wallet (including the seed) will be kept in the encrypted volume of your USB stick. This way, you don't need to access the seed whenever you want to do an outgoing transaction. This is more similar to the experience of using an air-gapped hardware wallet.
 
 ![Tails Greeter](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/tails-greeter.png)
 
@@ -59,8 +57,6 @@ If you plan to use the persistence volume, you may
 * Create a persistent volume via 'Applications ▸ Tails ▸ Configure persistent volume'.
 * Choose a strong passphrase with enough entropy ([see below](https://github.com/SovereignNode/tails-cold-storage/wiki/Guide:-Create-a-Bitcoin-cold-storage-using-Tails-OS#generating-entropy))
 * **Restart the system after creating your encrypted drive.**
-
-Note that creating a persistent volume is not necessary for this guide. If you decide not to use the persistent volume, your wallet will be more akin to a 'paper wallet' and the seed backup is your primary recovery mechanism. If you decide to use the persistent storage, your Tails USB will contain a copy of the seed (and can thus be used for signing without importing your seed again).
 
 The choice is a personal one. If you want to be able to spend from the wallet occasionally, I suggest that you use the persistent volume with a **strong passphrase**.
 
@@ -73,7 +69,7 @@ Ideally, you want to be using **casino-grade** dice for generating entropy. Roll
 
 # Creating a wallet
 ## Air-gapped cold storage wallet
-You should now have a trusted computer and a trusted Tails OS on USB (with or without a persistent storage)
+You should now have a trusted computer and a trusted Tails OS on USB (with a persistent volume encrypted by a strong passphrase)
 
 Tails OS (version 4.1) has Electrum wallet installed by default. To create a wallet, follow these steps:
 * Start Electrum in Tails

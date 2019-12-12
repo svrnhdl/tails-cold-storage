@@ -54,26 +54,11 @@ If you decide to enable the persistent storage, a copy of the wallet (including 
 
 ![Tails Greeter](https://github.com/SovereignNode/tails-cold-storage/blob/master/images/tails-greeter.png)
 
-If you plan to use the persistence volume, you may 
-* Start Tails without enabling networking 
-* Create a persistent volume via 'Applications ▸ Tails ▸ Configure persistent volume'.
-* Choose a strong passphrase with enough entropy ([see below](https://github.com/SovereignNode/tails-cold-storage/wiki/Guide:-Create-a-Bitcoin-cold-storage-using-Tails-OS#generating-entropy))
-* **Restart the system after creating your encrypted drive.**
-
-Note that creating a persistent volume is not necessary for this guide. If you decide not to use the persistent volume, your wallet will be more akin to a 'paper wallet' and the seed backup is your primary recovery mechanism. If you decide to use the persistent storage, your Tails USB will contain a copy of the seed (and can thus be used for signing without importing your seed again).
-
-The choice is a personal one. If you want to be able to spend from the wallet occasionally, I suggest that you use the persistent volume with a **strong passphrase**.
-
-## Generating entropy
-To get an idea of what a strong passphrase is, you can check out [this page](https://coldbit.com/can-bip-39-passphrase-be-cracked/). For the purpose of this guide, we will use the ['EFF Diceware Short Wordlist'](https://www.eff.org/files/2016/09/08/eff_short_wordlist_1.txt).
-
-Ideally, you want to be using **casino-grade** dice for generating entropy. Roll 4 dice on a fair surface and read the word from the printed wordlist. Write the word down carefully and continue until you have sufficient entropy.
-
-**I recommend using at least six words from the short wordlist**. This corresponds to 1296^6 combinations or 62 bits of entropy.
+Since we won't be using the persistence feature in this guide, you can simply start Tails. If you are using a computer that still has a wifi-card or has a wired connection to the internet, make sure to DISABLE ALL NETWORKING in the Tails Greeter.
 
 # Creating a wallet
 ## Air-gapped cold storage wallet
-You should now have a trusted computer and a trusted Tails OS on USB (with or without a persistent storage)
+You should now have a trusted computer and a trusted Tails OS on USB.
 
 Tails OS (version 4.1) has Electrum wallet installed by default. To create a wallet, follow these steps:
 * Start Electrum in Tails
@@ -99,6 +84,15 @@ Tails OS (version 4.1) has Electrum wallet installed by default. To create a wal
 
 Now that we have generated a seed, it is time to think about how we want to back-up this seed.
 
+## Generating entropy
+In the next step, we will need a strong passphrase to encrypt the mnemmonic seed phrase for our backup.
+
+To get an idea of what a strong passphrase is, you can check out [this page](https://coldbit.com/can-bip-39-passphrase-be-cracked/). For the purpose of this guide, we will use the ['EFF Diceware Short Wordlist'](https://www.eff.org/files/2016/09/08/eff_short_wordlist_1.txt).
+
+Ideally, you want to be using **casino-grade** dice for generating entropy. Roll 4 dice on a fair surface and read the word from the printed wordlist. Write the word down carefully and continue until you have sufficient entropy. For instance, if you roll '1111', you write down 'acid' from the list.
+
+**I recommend using at least six words from the short wordlist**. This corresponds to 1296^6 combinations or 62 bits of entropy.
+
 ## Backup Seed
 This guide will use 2 backup methods. You may choose to use both or use only one, depending on your preference for storing the backups and your personal considerations regarding their trade-offs.
 
@@ -106,9 +100,9 @@ Backup #1
 * Open a text editor
 * Copy the 12 words into the editor
 * Confirm the 12 words in the Electrum Install Wizard.
-* You can encrypt your wallet file (locally stored seed on the persistent volume) using an extra password (optional).
+* There is no need to encrypt the Electrum wallet file since we are not using the persistence feature. Tails will forget everything that you did during this session.
 * Your seed should still be in the clipboard. Select 'Encrypt Clipboard with Passphrase'
-* Enter a passphrase. This need not be the same passphrase as your persistent volume above.
+* Enter a passphrase. This need not be the same passphrase as your persistent volume above (but it can be).
 * Confirm the passphrase
 * Select the seed in the text editor and paste your clipboard. Your file should now contain a passphrase-encrypted PGP message.
 * Save the file into your extra backup device (USB #2, SD-card, ...)
@@ -119,12 +113,13 @@ Backup #2
 That's it. We now have multiple ways of recovering our coins:
 * Backup #2: a clear-text copy of your mnemmonic. **Anyone who has access to these words has access to your coins.**
 * Backup #1: a passphrase-encrypted file that contains a clear-text copy of your mnemmonic. **Anyone who has access to the storage device AND the passphrase has access to your coins.**
-* Tails OS: a passphrase-encrypted volume that contains a clear-text copy of your mnemmonic. **Anyone who has access to the storage device AND the passphrase has access to your coins.**
 
 Finally, it's time to set up a wallet on our normal computer that we can use to generate addresses and transactions that does NOT contain the seed (private keys).
 
 ## Watch-only wallet
-You may want to save the master key of your wallet onto the extra backup device. This needn't be encrypted but this information is sensitive in the sense of your personal privacy. **Anyone with this master key can track the balances of your wallet.**
+Next, save the master key of your wallet onto the extra backup device. This needn't be encrypted but this information is sensitive in the sense of your personal privacy. **Anyone with this master key can track the balances of your wallet.**
+
+If you are running Tails on a seperate computer, you can plug in the device into your normal computer or laptop. If you are using your normal computer for Tails, verify that you have correctly backed up your seed and restart your PC with your normal operating system. Mind that Tails will forget everything you did during this session.
 
 If you saved the master key of your wallet, you may create a watch-only wallet on a second computer.
 * Open Electrum
