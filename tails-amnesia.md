@@ -11,7 +11,7 @@ Before you start creating your keys, read through the entire guide first. If you
 
 * 1 Computer
 * 1 USB stick (min. 8GB)
-* 1 Extra backup device (USB, SD-card, ...)
+* 1 Extra storage device (USB, SD-card, ...)
 * Dice (6-sided) for generating entropy
 
 Ideally, the computer is an old laptop that has the wifi-adapter and hard-drive physically removed. Make sure you trust the hardware you are using to generate your wallet. If you don't know how to remove the wifi-adapter, search around on YouTube for video's on how to replace it for your specific computer model. If you don't have an old laptop or computer lying around, you may also use your normal computer (not recommended).
@@ -76,9 +76,7 @@ Tails OS (version 4.1) has [Electrum wallet](https://electrum.org/#home) install
 Now that we have generated a seed, it is time to think about how we want to back-up this seed.
 
 ## Generating entropy
-In the next step, we will need a strong passphrase to encrypt the mnemmonic seed phrase for our backup.
-
-To get an idea of what a strong passphrase is, you can check out [this page](https://coldbit.com/can-bip-39-passphrase-be-cracked/). For the purpose of this guide, we will use the ['EFF Diceware Short Wordlist'](https://www.eff.org/files/2016/09/08/eff_short_wordlist_1.txt).
+In the next step, we will need a strong passphrase to encrypt the mnemmonic seed phrase for our backup. To get an idea of what a strong passphrase is, you can check out [this page](https://coldbit.com/can-bip-39-passphrase-be-cracked/). For the purpose of this guide, we will use the ['EFF Diceware Short Wordlist'](https://www.eff.org/files/2016/09/08/eff_short_wordlist_1.txt).
 
 Ideally, you want to be using **casino-grade** dice for generating entropy. Roll 4 dice on a fair surface and read the word from the printed wordlist. Write the word down carefully and continue until you have sufficient entropy. For instance, if you roll '1111', you write down 'acid' from the list. **I recommend using at least six words from the short wordlist**. This corresponds to 1296^6 combinations or 62 bits of entropy.
 
@@ -178,6 +176,7 @@ We now have the following objects to secure:
 1. Clear-text copy of our `mnemmonic seed phrase`
 2. A `storage device` with a passphrase-encrypted file (containing our mnemmonic seed phrase)
 3. A `passphrase` to decrypt the passphrase-encrypted file on the USB-stick
+
 
 * Securely store the `mnemmonic seed phrase` in a safe place. Consider storing this inside a tamper-evident bag and using a vault or bank-deposit box.
 * Keep your `storage device` safe. This can be a USB-stick or an SD-card.
